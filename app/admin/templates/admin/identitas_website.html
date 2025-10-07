@@ -1,0 +1,77 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Identitas Website{% endblock %}
+
+{% block page_title %}
+    <i class="bi bi-person-badge mr-2"></i> Identitas Website
+{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow rounded p-6">
+    {% if not data %}
+        <div class="mb-4 text-red-600">Belum ada data identitas website. Silakan isi lalu Simpan.</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('admin.identitas_website') }}" enctype="multipart/form-data" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block font-semibold mb-1">Nama Website</label>
+                <input type="text" name="nama_website" value="{{ data.nama_website or '' }}" class="w-full border rounded px-3 py-2" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-1">Email</label>
+                <input type="email" name="email" value="{{ data.email or '' }}" class="w-full border rounded px-3 py-2" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-1">Domain</label>
+                <input type="text" name="domain" value="{{ data.domain or '' }}" class="w-full border rounded px-3 py-2" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-1">Sosial Network</label>
+                <input type="text" name="sosial_network" value="{{ data.sosial_network or '' }}" class="w-full border rounded px-3 py-2">
+            </div>
+            <div>
+                <label class="block font-semibold mb-1">No. Rekening</label>
+                <input type="text" name="no_rekening" value="{{ data.no_rekening or '' }}" class="w-full border rounded px-3 py-2">
+            </div>
+            <div>
+                <label class="block font-semibold mb-1">No. Telepon</label>
+                <input type="text" name="no_telpon" value="{{ data.no_telpon or '' }}" class="w-full border rounded px-3 py-2">
+            </div>
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Meta Deskripsi</label>
+            <textarea name="meta_deskripsi" rows="3" class="w-full border rounded px-3 py-2">{{ data.meta_deskripsi or '' }}</textarea>
+        </div>
+        <div>
+            <label class="block font-semibold mb-1">Meta Keyword</label>
+            <textarea name="meta_keyword" rows="3" class="w-full border rounded px-3 py-2">{{ data.meta_keyword or '' }}</textarea>
+        </div>
+        <div>
+            <label class="block font-semibold mb-1">Google Maps</label>
+            <textarea name="google_maps" rows="3" class="w-full border rounded px-3 py-2">{{ data.google_maps or '' }}</textarea>
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Favicon</label>
+            {% if data and data.favicon %}
+            <div class="mb-2">
+                <img src="{{ url_for('static', filename='uploads/' + data.favicon) }}" alt="favicon" class="w-10 h-10 inline-block mr-2">
+                <span class="text-sm text-gray-600">Favicon saat ini: {{ data.favicon }}</span>
+            </div>
+            {% endif %}
+            <input type="file" name="favicon" class="w-full border rounded px-3 py-2">
+        </div>
+
+        <div class="pt-4 flex space-x-4">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+                Update
+            </button>
+            <button type="button" onclick="window.location.reload();" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %} {# Mengatur judul tab browser secara dinamis
+berdasarkan judul berita #} {% block title %}{{ berita.judul }} - Dinas Kominfo
+Purworejo{% endblock %} {# Konten utama khusus untuk halaman detail berita #} {%
+block content %}
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
+  <article class="bg-white rounded-xl shadow-lg p-6 md:p-10">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-900 mb-2">
+      {{ berita.judul }}
+    </h1>
+
+    {% if berita.sub_judul %}
+    <p class="text-lg text-gray-600 mb-6">{{ berita.sub_judul }}</p>
+    {% endif %}
+
+    <div class="text-sm text-gray-500 mb-6 border-b pb-4">
+      <span>Dipublikasikan pada: </span>
+      <time
+        datetime="{{ berita.tanggal.strftime('%Y-%m-%d') if berita.tanggal }}"
+      >
+        {{ berita.tanggal.strftime('%d %B %Y') if berita.tanggal }}
+      </time>
+    </div>
+
+    {% if berita.gambar %}
+    <img
+      src="{{ url_for('static', filename='uploads/' ~ berita.gambar) }}"
+      alt="{{ berita.judul }}"
+      class="w-full h-auto rounded-lg shadow-md mb-8"
+    />
+    {% endif %}
+
+    <div class="prose max-w-none text-gray-800 leading-relaxed">
+      {{ berita.isi_berita | safe }}
+    </div>
+
+    <div class="mt-10 pt-6 border-t">
+      <a
+        href="{{ url_for('public.halaman_berita') }}"
+        class="inline-block px-5 py-2 bg-blue-700 text-white text-sm font-medium rounded-full hover:bg-teal-600 transition-colors"
+      >
+        &larr; Kembali ke Daftar Berita
+      </a>
+    </div>
+  </article>
+</main>
+{% endblock %}

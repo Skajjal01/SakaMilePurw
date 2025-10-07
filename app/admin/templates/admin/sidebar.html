@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Sidebar - Kominfo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"/>
+  <style>
+    .scrollbar-hidden::-webkit-scrollbar { display: none; }
+    
+    /* Enhanced Animations */
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-100%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(139, 92, 246, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.3); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+      40%, 43% { transform: translate3d(0, -10px, 0); }
+      70% { transform: translate3d(0, -5px, 0); }
+      90% { transform: translate3d(0, -2px, 0); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: 200px 0; }
+    }
+    
+    @keyframes ripple {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+    
+    /* Animation Classes */
+    .animate-slideInLeft { animation: slideInLeft 0.8s ease-out; }
+    .animate-fadeIn { animation: fadeIn 0.6s ease-out; }
+    .animate-glow { animation: glow 3s infinite; }
+    .animate-pulse-custom { animation: pulse 2s infinite; }
+    .animate-bounce-custom { animation: bounce 2s infinite; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-shimmer { animation: shimmer 2s infinite; }
+    
+    /* Delay Classes */
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    
+    /* Menu Item Hover Effects */
+    .menu-item {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .menu-item:hover::before {
+      left: 100%;
+    }
+    
+    .menu-item:hover {
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* Active Menu Item */
+    .menu-item-active {
+      background: linear-gradient(135deg, #8b5cf6, #a855f7);
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+      border-right: 4px solid #fbbf24;
+    }
+    
+    .menu-item-active::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 60%;
+      background: linear-gradient(to bottom, #fbbf24, #f59e0b);
+      border-radius: 2px 0 0 2px;
+    }
+    
+    /* Submenu Animation */
+    .submenu {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: top;
+    }
+    
+    .submenu-closed {
+      max-height: 0;
+      opacity: 0;
+      transform: scaleY(0);
+    }
+    
+    .submenu-open {
+      max-height: 200px;
+      opacity: 1;
+      transform: scaleY(1);
+    }
+    
+    /* Logo Animation */
+    .logo-container {
+      position: relative;
+      overflow: hidden;
+      width: 60px;
+    }
+    
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 50%;
+      height: 50%;
+      animation: rotate 3s linear infinite;
+
+    }
+    
+    @keyframes rotate {
+      to { transform: rotate(0deg); }
+    }
+    
+    /* Status Indicator */
+    .status-online {
+      position: relative;
+    }
+    
+    .status-online::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: ripple 2s infinite;
+    }
+    
+    /* Custom Gradient Backgrounds */
+    .sidebar-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+    }
+    
+    .sidebar-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+      z-index: 1;
+    }
+    
+    .sidebar-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Notification Badge */
+    .notification-badge {
+      background: linear-gradient(135deg, #ec4899, #f97316);
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
+    }
+    
+    /* Logout Button Special Effect */
+    .logout-btn {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .logout-btn:hover {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      .sidebar-mobile.open {
+        transform: translateX(0);
+      }
+    }
+    
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.6); border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.8); }
+  </style>
+</head>
+<body class="flex min-h-screen bg-gray-100 font-sans">
+  <aside class="w-64 h-screen sidebar-gradient text-white flex-shrink-0 flex flex-col shadow-2xl animate-slideInLeft">
+    <div class="sidebar-content h-full flex flex-col">
+      <div class="p-6 flex items-center gap-4 border-b border-white/20 animate-fadeIn delay-100 flex-shrink-0">
+        <div class="logo-container relative">
+          <img src="{{ url_for('static', filename='img/Logo_Kementerian_Kominfo_Purworejo.png') }}">
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-l tracking-wide animate-shimmer bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+            ADMIN PANEL
+          </div>
+          <div class="status-online text-green-300 text-sm font-medium mt-1">
+            ● Online
+          </div>
+        </div>
+      </div>
+
+      <nav class="mt-6 text-sm flex-1 overflow-y-auto custom-scrollbar px-3">
+        <ul class="space-y-2">
+          <li class="animate-fadeIn delay-200">
+            <a href="{{ url_for('admin.dashboard') }}" 
+               class="menu-item menu-item-active flex items-center px-4 py-3 rounded-xl transition-all duration-300 group">
+              <i class="bi bi-speedometer2 mr-3 text-lg group-hover:scale-110 transition-transform"></i>
+              <span class="font-medium">Dashboard</span>
+            </a>
+          </li>
+
+          {% if session.user_level in ['Admin', 'Operator'] %}
+          <li class="animate-fadeIn delay-300">
+            <button
+              onclick="toggleSubmenu('menuUtamaSub', 'icon-menuUtamaSub')"
+              class="menu-item w-full flex items-center px-4 py-3 hover:bg-white/10 rounded-xl transition-all duration-300 group"
+            >
+              <i class="bi bi-grid-3x3-gap mr-3 text-lg group-hover:scale-110 transition-transform"></i>
+              <span class="font-medium">Menu Utama</span>
+              <i class="bi bi-chevron-down ml-auto transition-transform duration-300 group-hover:scale-110" id="icon-menuUtamaSub"></i>
+            </button>
+            <ul id="menuUtamaSub" class="submenu submenu-closed pl-6 mt-2 space-y-1 text-purple-200">
+              <li>
+                <a href="{{ url_for('admin.identitas_website') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-person-badge mr-2"></i> Identitas Website
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('admin.halaman_baru') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-file-plus mr-2"></i> Halaman Baru
+                </a>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+
+          {% if session.user_level in ['Admin', 'Editor', 'Kontributor'] %}
+          <li class="animate-fadeIn delay-400">
+            <button
+              onclick="toggleSubmenu('beritaSub', 'icon-beritaSub')"
+              class="menu-item w-full flex items-center px-4 py-3 hover:bg-white/10 rounded-xl transition-all duration-300 group"
+            >
+              <i class="bi bi-newspaper mr-3 text-lg group-hover:scale-110 transition-transform"></i>
+              <span class="font-medium">Berita</span>
+              <i class="bi bi-chevron-down ml-auto transition-transform duration-300 group-hover:scale-110" id="icon-beritaSub"></i>
+            </button>
+            <ul id="beritaSub" class="submenu submenu-closed pl-6 mt-2 space-y-1 text-purple-200">
+              <li>
+                <a href="{{ url_for('admin.berita') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-upload mr-2"></i> Kelola Berita
+                </a>
+              </li>
+              {% if session.user_level in ['Admin', 'Editor'] %}
+              <li>
+                <a href="{{ url_for('admin.kategori_berita') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-folder mr-2"></i> Kategori Berita
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('admin.tag_berita') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-tags mr-2"></i> Tag Berita
+                </a>
+              </li>
+              {% endif %}
+              {% if session.user_level == 'Admin' %}
+              <li>
+                <a href="{{ url_for('admin.komentar_berita') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-chat-left-text mr-2"></i> Komentar Berita
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('admin.sensor_komentar') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                  <i class="bi bi-shield-lock mr-2"></i> Sensor Komentar
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </li>
+          {% endif %}
+          
+          {% if session.user_level in ['Admin', 'Operator'] %}
+          <li class="animate-fadeIn delay-600">
+            <button
+              onclick="toggleSubmenu('operatorSub', 'icon-operatorSub')"
+              class="menu-item w-full flex items-center px-4 py-3 hover:bg-white/10 rounded-xl transition-all duration-300 group"
+            >
+              <i class="bi bi-grid-1x2 mr-3 text-lg group-hover:scale-110 transition-transform"></i>
+              <span class="font-medium">Operasional</span>
+              <i class="bi bi-chevron-down ml-auto transition-transform duration-300 group-hover:scale-110" id="icon-operatorSub"></i>
+            </button>
+            <ul id="operatorSub" class="submenu submenu-closed pl-6 mt-2 space-y-1 text-purple-200">
+                <li>
+                    <a href="{{ url_for('admin.agenda_admin') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                      <i class="bi bi-calendar-event mr-2"></i> Agenda
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin.sekilas_info_index') }}" class="flex items-center py-2 px-4 hover:text-white hover:bg-white/10 rounded-lg transition">
+                      <i class="bi bi-info-circle mr-2"></i> Pengumuman
+                    </a>
+                </li>
+            </ul>
+          </li>
+          {% endif %}
+
+          {% if session.user_level == 'Admin' %}
+          <li class="animate-fadeIn delay-700">
+            <a href="{{ url_for('admin.manajemen_users') }}" 
+               class="menu-item flex items-center px-4 py-3 hover:bg-white/10 rounded-xl transition group">
+              <i class="bi bi-people mr-3 text-lg group-hover:scale-110 transition-transform"></i>
+              <span class="font-medium">Manajemen Users</span>
+            </a>
+          </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+
+      <div class="mt-auto p-3 flex-shrink-0">
+          <div class="border-t border-white/20 pt-4 animate-fadeIn delay-1000">
+              <a href="{{ url_for('admin.logout') }}" onclick="return confirm('Apakah Anda yakin ingin logout?')" 
+                 class="logout-btn menu-item flex items-center px-4 py-3 text-red-300 hover:text-white rounded-xl transition group">
+                <i class="bi bi-box-arrow-right mr-3 text-lg group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Logout</span>
+              </a>
+          </div>
+          <div class="mt-4 p-3 bg-white/10 rounded-xl text-center animate-fadeIn delay-1100">
+            <div class="text-xs text-purple-200 mb-1">Admin Panel v3.0.0</div>
+            <div class="text-xs text-green-300 mt-1">System Health: Good</div>
+          </div>
+      </div>
+    </div>
+</aside>
+
+    <!-- Enhanced JavaScript -->
+    <script>
+      function toggleSubmenu(submenuId, iconId) {
+        const submenu = document.getElementById(submenuId);
+        const icon = document.getElementById(iconId);
+        const isOpen = submenu.classList.contains("submenu-open");
+
+        // Close all other submenus
+        document.querySelectorAll(".submenu").forEach((menu) => {
+          if (menu.id !== submenuId) {
+            menu.classList.remove("submenu-open");
+            menu.classList.add("submenu-closed");
+          }
+        });
+
+        // Reset all icons
+        document.querySelectorAll('[id^="icon-"]').forEach((ic) => {
+          if (ic.id !== iconId) {
+            ic.classList.remove("rotate-180");
+          }
+        });
+
+        // Toggle current submenu
+        if (isOpen) {
+          submenu.classList.remove("submenu-open");
+          submenu.classList.add("submenu-closed");
+          icon.classList.remove("rotate-180");
+        } else {
+          submenu.classList.remove("submenu-closed");
+          submenu.classList.add("submenu-open");
+          icon.classList.add("rotate-180");
+        }
+
+        // Add ripple effect
+        const button = icon.closest("button");
+        createRipple(button, event);
+      }
+
+      // Ripple effect function
+      function createRipple(element, event) {
+        const ripple = document.createElement("div");
+        const rect = element.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+
+        ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: ripple 0.6s ease-out;
+        z-index: 1000;
+      `;
+
+        element.style.position = "relative";
+        element.style.overflow = "hidden";
+        element.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      }
+
+      // Add click listeners to all menu items for ripple effect
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuItems = document.querySelectorAll(".menu-item");
+        menuItems.forEach((item) => {
+          item.addEventListener("click", function (e) {
+            if (!this.querySelector(".submenu")) {
+              createRipple(this, e);
+            }
+          });
+        });
+
+        // Animate menu items on load
+        const items = document.querySelectorAll("nav li");
+        items.forEach((item, index) => {
+          item.style.opacity = "0";
+          item.style.transform = "translateX(-20px)";
+          setTimeout(() => {
+            item.style.transition = "all 0.3s ease";
+            item.style.opacity = "1";
+            item.style.transform = "translateX(0)";
+          }, index * 100);
+        });
+      });
+
+      // Auto-highlight active menu based on current URL
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentPath = window.location.pathname;
+        const menuLinks = document.querySelectorAll("nav a[href]");
+
+        menuLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPath) {
+            link.parentElement.classList.add("animate-glow");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,538 @@
+/* --- [START] KODE CSS LENGKAP --- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: url('static/img/lapor.png'), auto;
+}
+
+/* === Dropdown Menu === */
+.dropdown-menu {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.group:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: #14b8a6;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background-color: #f1f5f9;
+}
+
+/* Beri jarak antara header dan navbar */
+#main-header {
+    margin-bottom: 2rem; /* Sesuaikan nilainya sesuai kebutuhan */
+}
+
+/* === Hamburger Menu (Mobile) === */
+.mobile-menu-button {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.75rem;
+  background-color: #1d4ed8;
+  color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-button:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100%;
+  background-color: #1e293b;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+}
+
+.mobile-menu.active {
+  left: 0;
+}
+
+/* === Media Query untuk Tampilan Mobile === */
+@media (max-width: 1024px) {
+  .flex-1.flex.flex-wrap.items-center.justify-center {
+    display: none;
+  }
+  #nav-search-container {
+    display: none;
+  }
+  #main-nav ul {
+    border: none;
+    box-shadow: none;
+  }
+  #main-nav ul.flex {
+    background-color: transparent;
+    border-radius: 0;
+  }
+  .mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-menu {
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  .mobile-menu .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .mobile-menu .close-button:hover {
+    transform: rotate(90deg);
+  }
+  .mobile-menu ul {
+    margin-top: 3rem;
+  }
+  .mobile-menu ul li {
+    display: block;
+    width: 100%;
+  }
+  .mobile-menu li a {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .mobile-menu li a:hover {
+    background: rgba(59, 130, 246, 0.5);
+    padding-left: 1.5rem;
+  }
+  .mobile-menu .dropdown-content {
+    display: none;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    border-left: 2px solid rgba(59, 130, 246, 0.5);
+  }
+  .mobile-menu .dropdown-content.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* === Panel Samping (Sidebar) dan Backdrop === */
+
+/* Gaya untuk panel aksesibilitas (tetap gelap) */
+/* Mode default (putih) untuk sidebar aksesibilitas */
+#accessibility-sidebar {
+    background-color: #ffffff;
+    color: #111827; /* gray-900 */
+}
+
+#accessibility-sidebar h3,
+#accessibility-sidebar button,
+#accessibility-sidebar label {
+    color: #111827;
+}
+
+#accessibility-sidebar .hover\:bg-gray-700:hover {
+    background-color: #f3f4f6 !important; /* gray-100 */
+}
+
+/* [PERUBAHAN DI SINI] Gaya untuk panel cuaca diubah menjadi abu-abu terang */
+.weather-sidebar {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 420px;
+  max-width: 90vw;
+  height: 100%;
+  /* Latar belakang diubah menjadi abu-abu terang */
+  background-color: #f1f5f9; 
+  /* Warna teks diubah menjadi lebih gelap agar kontras */
+  color: #1e293b;
+  z-index: 1050;
+  transition: right 0.3s ease-in-out;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Atur warna spesifik untuk elemen di dalam panel cuaca */
+.weather-sidebar #close-weather-sidebar {
+    color: #1e293b;
+}
+.weather-sidebar #tanggal-hari-ini {
+    color: #475569;
+}
+.weather-sidebar h3 {
+    color: #1e293b;
+}
+
+/* Status 'open' untuk memunculkan panel */
+.accessibility-sidebar.open,
+.weather-sidebar.open {
+  right: 0;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* === Tombol Melayang (Floating Buttons) === */
+#goToTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#accessibility-button {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 1000;
+}
+#weather-button {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    z-index: 1000;
+}
+
+
+/* === Dark Mode Styles === */
+.dark body {
+  background-color: #111827;
+  color: #d1d5db;
+}
+.dark #main-header {
+  background-image: none;
+  background-color: #1f2937;
+}
+.dark #main-nav ul {
+  background-color: #374151;
+}
+.dark #main-nav a:hover {
+  background-color: #4b5563;
+}
+.dark .mobile-menu {
+  background-color: #111827;
+}
+.dark .bg-white {
+  background-color: #1f2937;
+}
+.dark .text-gray-800 {
+  color: #f9fafb;
+}
+.dark .text-gray-700 {
+  color: #e5e7eb;
+}
+.dark .text-gray-600 {
+  color: #9ca3af;
+}
+.dark .text-gray-500 {
+  color: #6b7280;
+}
+.dark .border-gray-200 {
+  border-color: #4b5563;
+}
+.dark .selection\:bg-teal-300::selection {
+  background-color: #5eead4;
+  color: #1f2937;
+}
+.dark .selection\:bg-red-300::selection {
+  background-color: #d50c0c;
+  color: #1f2937;
+}
+.dark footer {
+  background-color: #111827;
+}
+.dark .dropdown-menu {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+.dark .dropdown-menu a:hover {
+  background-color: #374151;
+}
+/* Mode malam untuk sidebar cuaca */
+.dark #weather-sidebar {
+    background-color: #1f2937; /* gray-800 */
+    color: #f9fafb; /* gray-50 */
+}
+
+.dark #weather-sidebar .bg-white {
+    background-color: #374151 !important; /* gray-700 */
+    color: #f9fafb !important;
+}
+/* Mode malam untuk isi cuaca (iframe dan teks) */
+.dark #weather-sidebar .text-white-500,
+.dark #weather-sidebar .text-white-400,
+.dark #weather-sidebar .text-white-800,
+.dark #weather-sidebar a {
+    color: #f9fafb !important; /* gray-50 */
+}
+
+.dark #weather-sidebar .text-gray-300 {
+    color: #d1d5db !important; /* gray-300 */
+}
+
+.dark #weather-sidebar h3,
+.dark #weather-sidebar p,
+.dark #weather-sidebar a {
+    color: #f9fafb !important;
+}
+
+/* Mode malam untuk sidebar aksesibilitas */
+.dark #accessibility-sidebar {
+    background-color: #1f2937; /* gray-800 */
+    color: #f9fafb; /* gray-50 */
+}
+
+.dark #accessibility-sidebar h3,
+.dark #accessibility-sidebar button,
+.dark #accessibility-sidebar label {
+    color: #f9fafb !important;
+}
+
+.dark #accessibility-sidebar .hover\:bg-gray-700:hover {
+    background-color: #4b5563 !important; /* gray-600 */
+}
+/* Warna tombol X sidebar cuaca saat mode malam */
+.dark #close-weather-sidebar {
+  color: #ffffff !important;
+}
+.dark #layanan-kami-section {
+  background-image: url("static/img/bg-dark.jpg") !important;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.dark #layanan-kami-section::before {
+  background: linear-gradient(to top, rgba(17, 24, 39, 0.8) 0%, transparent 20%),
+              linear-gradient(to bottom, rgba(17, 24, 39, 0.8) 0%, transparent 20%),
+              linear-gradient(to left, rgba(17, 24, 39, 0.8) 0%, transparent 25%),
+              linear-gradient(to right, rgba(17, 24, 39, 0.8) 0%, transparent 25%);
+}
+
+/* === Kontrol Aksesibilitas di Panel === */
+.font-size-control {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4b5563;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  font-size: 16px;
+  line-height: 1;
+}
+.font-size-control:hover {
+  background-color: #6b7280;
+  transform: scale(1.1);
+}
+.font-size-control:active {
+  transform: scale(0.95);
+}
+#reset-font {
+  font-size: 14px;
+}
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: #68d391;
+}
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #68d391;
+}
+
+/* === Efek Banner dan Popup === */
+.banner-slide {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.banner-slide .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease;
+}
+.banner-slide:hover .overlay {
+  opacity: 1;
+}
+.banner-slide .overlay button {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.banner-slide .overlay button:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+#bannerPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+#bannerPopup .popup-content {
+  background: white;
+  color: black;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  border-radius: 1rem;
+  position: relative;
+  animation: popupFade 0.3s ease;
+}
+#bannerPopup .popup-content h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+#bannerPopup .popup-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+#bannerPopup .close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s;
+}
+#bannerPopup .close-btn:hover {
+  color: #e11d48;
+}
+
+@keyframes popupFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === Animasi Header === */
+:root {
+  --icon-height: 70%;
+  --icon-duration: 30s;
+  --prameks-height: 55px;
+  --prameks-bottom: 90px;
+  --prameks-duration: 6s;
+  --prameks-delay: 0s;
+  --trans-kanan-height: 51px;
+  --trans-kanan-bottom: 10px;
+  --trans-kanan-duration: 8s;
+  --trans-kanan-delay: 0s;
+  --angkot1-kanan-height: 37px;
+  --angkot1-kanan-bottom: 10px;
+  --angkot1-kanan-duration: 10s;
+  --angkot1-kanan-delay: 0s;
+  --angkot3-kanan-height: 37px;
+  --angkot3-kanan-bottom: 10px;
+  --angkot3-kanan-duration: 12s;
+  --angkot3-kanan-delay: 0s;
+  --trans-kiri-height: 48px;
+  --trans-kiri-bottom: 35px;
+  --trans-kiri-duration: 8s;
+  --trans-kiri-delay: 0s;
+  --angkot1-kiri-height: 35px;
+  --angkot1-kiri-bottom: 35px;
+  --angkot1-kiri-duration: 10s;
+  --angkot1-kiri-delay: 0s;
+  --angkot4-kiri-height: 35px;
+  --angkot4-kiri-bottom: 35px;
+  --angkot4-kiri-duration: 12s;
+  --angkot4-kiri-delay: 0s;
+}
+.animated-header-background { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.anim-bg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.anim-objek-diam {
+  position: absolute; bottom: 0; left: 0; height: var(--icon-height); width: 200%; z-index: 10;
+  background-image: url('../img/icon-terfix.png'); background-repeat: repeat-x; background-position: bottom;
+  background-size: auto var(--icon-height);
+  animation: seamless-scroll var(--icon-duration) ease-in-out infinite alternate;
+}
+.anim-objek { position: absolute; animation-iteration-count: infinite; animation-timing-function: linear; }
+.prameks { height: var(--prameks-height); bottom: var(--prameks-bottom); z-index: 9; animation: move-right-to-left var(--prameks-duration) linear var(--prameks-delay) infinite; }
+.jalur-belakang { z-index: 11; }
+.jalur-depan { z-index: 12; }
+.trans-kanan   { height: var(--trans-kanan-height); bottom: var(--trans-kanan-bottom); animation: move-right-to-left var(--trans-kanan-duration) linear var(--trans-kanan-delay) infinite; }
+.angkot1-kanan { height: var(--angkot1-kanan-height); bottom: var(--angkot1-kanan-bottom); animation: move-right-to-left var(--angkot1-kanan-duration) linear var(--angkot1-kanan-delay) infinite; }
+.angkot3-kanan { height: var(--angkot3-kanan-height); bottom: var(--angkot3-kanan-bottom); animation: move-right-to-left var(--angkot3-kanan-duration) linear var(--angkot3-kanan-delay) infinite; }
+.trans-kiri    { height: var(--trans-kiri-height); bottom: var(--trans-kiri-bottom); animation: move-left-to-right var(--trans-kiri-duration) linear var(--trans-kiri-delay) infinite; }
+.angkot1-kiri  { height: var(--angkot1-kiri-height); bottom: var(--angkot1-kiri-bottom); animation: move-left-to-right var(--angkot1-kiri-duration) linear var(--angkot1-kiri-delay) infinite; }
+.angkot4-kiri  { height: var(--angkot4-kiri-height); bottom: var(--angkot4-kiri-bottom); animation: move-left-to-right var(--angkot4-kiri-duration) linear var(--angkot4-kiri-delay) infinite; }
+@keyframes move-right-to-left { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+@keyframes move-left-to-right { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
+@keyframes seamless-scroll { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+
+/* === [AKHIR] KODE CSS LENGKAP --- */
