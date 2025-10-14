@@ -1,18 +1,360 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Mengalihkan...</title>
-  <script type="text/javascript">
-    window.onload = function() {
-      setTimeout(function() {
-        window.open("https://docs.google.com/forms/d/1tSIor6a8w7mkXerzZ-3VsxcR7ETp7ZrIfF4zbl5fBqk/viewform?edit_requested", "_blank");
-      }, 1000); // Jeda 1 detik sebelum membuka tab baru
-      window.location.href = "https://docs.google.com/forms/d/1tSIor6a8w7mkXerzZ-3VsxcR7ETp7ZrIfF4zbl5fBqk/viewform?edit_requested";
-    };
-  </script>
-</head>
-<body>
-  <p>Jika tidak otomatis, klik <a href="https://docs.google.com/forms/d/1tSIor6a8w7mkXerzZ-3VsxcR7ETp7ZrIfF4zbl5fBqk/viewform?edit_requested">di sini</a>.</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAKA MILENIAL</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom font */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: rgb(
+          253,
+          170,
+          2
+        ); /* Latar belakang yang cerah dan profesional */
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex items-center justify-center p-4">
+    <!-- Kontainer Utama Formulir (Kartu yang Lebih Modern) -->
+    <div
+      class="w-full max-w-xl bg-white shadow-2xl border border-gray-100 rounded-2xl p-6 sm:p-10 transition-all duration-300"
+    >
+      <!-- Header Section -->
+      <div class="flex items-center gap-3 text-center mb-6">
+        <img
+          src="static/img/image-removebg-preview.png"
+          alt="Logo Saka"
+          class="w-16 h-auto object-contain"
+        />
+        <div>
+          <h1
+            class="text-2xl md:text-4xl font-bold tracking-wide uppercase"
+            style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)"
+          >
+            SAKA MILENIAL
+          </h1>
+          <p
+            class="text-base md:text-2xl opacity-80"
+            style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)"
+          >
+            KWARCAB PURWOREJO
+          </p>
+        </div>
+      </div>
+
+      <!-- Form Element -->
+      <form id="registrationForm" class="space-y-6">
+        <!-- Nama Lengkap -->
+        <div>
+          <label
+            for="nama_lengkap"
+            class="block text-sm font-semibold text-gray-700 mb-1"
+            >Nama Lengkap</label
+          >
+          <input
+            type="text"
+            id="nama_lengkap"
+            required
+            placeholder="Cth: Alex Black"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-rose-500 focus:border-rose-500 transition duration-150 shadow-sm"
+          />
+        </div>
+
+        <!-- Email Kontak -->
+        <div>
+          <label
+            for="email_kontak"
+            class="block text-sm font-semibold text-gray-700 mb-1"
+            >Alamat Email</label
+          >
+          <input
+            type="email"
+            id="email_kontak"
+            required
+            placeholder="alamat.email@anda.com"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-rose-500 focus:border-rose-500 transition duration-150 shadow-sm"
+          />
+        </div>
+
+        <!-- Nomor Telepon -->
+        <div>
+          <label
+            for="nomor_telepon"
+            class="block text-sm font-semibold text-gray-700 mb-1"
+            >Nomor Telepon (WA Aktif)</label
+          >
+          <input
+            type="tel"
+            id="nomor_telepon"
+            required
+            placeholder="Cth: 081234567890"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-rose-500 focus:border-rose-500 transition duration-150 shadow-sm"
+          />
+        </div>
+
+        <!-- Tanggal Lahir -->
+        <div>
+          <label
+            for="tanggal_lahir"
+            class="block text-sm font-semibold text-gray-700 mb-1"
+            >Tanggal Lahir</label
+          >
+          <input
+            type="date"
+            id="tanggal_lahir"
+            required
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-rose-500 focus:border-rose-500 transition duration-150 shadow-sm"
+          />
+        </div>
+
+        <!-- Pilihan Program -->
+        <div>
+          <label
+            for="pilihan_program"
+            class="block text-sm font-semibold text-gray-700 mb-1"
+            >Pilihan Program</label
+          >
+          <select
+            id="pilihan_program"
+            required
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-rose-500 focus:border-rose-500 transition duration-150 appearance-none bg-white shadow-sm"
+          >
+            <option value="" disabled selected>Pilih salah satu Krida</option>
+            <option value="Reguler">Krida Literasi Digital dan Internet</option>
+            <option value="Intensif">
+              Krida Kreasi Animasi dan Multimedia
+            </option>
+            <option value="Kelas_Online">Krida Inovasi Perangkat Lunak</option>
+            <option value="Kelas_Online">Krida Telemerti dan Robotika</option>
+            <option value="Kelas_Online">
+              Krida Teknologi Jaringan dan Big Data
+            </option>
+          </select>
+        </div>
+
+        <!-- Alamat Lengkap -->
+        <div>
+          <label
+            for="alamat_lengkap"
+            class="block text-sm font-semibold text-gray-700 mb-1"
+            >Alamat Lengkap</label
+          >
+          <textarea
+            id="alamat_lengkap"
+            rows="3"
+            required
+            placeholder="Masukkan alamat domisili lengkap Anda"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-rose-500 focus:border-rose-500 transition duration-150 shadow-sm"
+          ></textarea>
+        </div>
+
+        <!-- Tombol Submit -->
+        <button
+          id="submitButton"
+          type="submit"
+          class="w-full flex items-center justify-center bg-rose-600 text-white font-bold tracking-wide py-3 rounded-lg hover:bg-rose-700 transition duration-300 focus:outline-none focus:ring-4 focus:ring-rose-300 disabled:opacity-50 shadow-md hover:shadow-lg"
+        >
+          <span id="buttonText">Daftar Sekarang</span>
+          <!-- Loading Indicator -->
+          <svg
+            id="loadingSpinner"
+            class="hidden animate-spin h-5 w-5 text-white ml-2"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Message Box untuk Notifikasi -->
+      <div
+        id="messageBox"
+        class="mt-6 p-4 rounded-lg text-center hidden"
+        role="alert"
+      >
+        <!-- Isi akan diisi oleh JavaScript -->
+      </div>
+
+      <!-- Footer / Tautan Tambahan -->
+      <div class="mt-6 text-center text-sm text-gray-500">
+        Sudah punya akun?
+        <a
+          href="#"
+          class="font-medium text-rose-600 hover:text-rose-500 transition duration-150"
+          >Masuk di sini</a
+        >
+      </div>
+    </div>
+
+    <!-- JavaScript dan Firebase Logic -->
+    <script type="module">
+      // Import Firebase CDN
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+        signInWithCustomToken,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        setLogLevel,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // Global Firebase variables
+      let db;
+      let auth;
+      let userId;
+      const appId =
+        typeof __app_id !== "undefined" ? __app_id : "default-app-id";
+
+      // Set log level for debugging
+      setLogLevel("Debug");
+
+      // --- 1. INISIALISASI FIREBASE ---
+      try {
+        const firebaseConfig = JSON.parse(
+          typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
+        );
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+        console.log("Firebase initialized successfully.");
+      } catch (e) {
+        console.error("Error initializing Firebase:", e);
+      }
+
+      // --- 2. AUTENTIKASI ---
+      // Lakukan autentikasi menggunakan token kustom atau anonim
+      async function authenticateUser() {
+        try {
+          if (typeof __initial_auth_token !== "undefined") {
+            const userCredential = await signInWithCustomToken(
+              auth,
+              __initial_auth_token
+            );
+            userId = userCredential.user.uid;
+            console.log("Signed in with custom token. User ID:", userId);
+          } else {
+            const userCredential = await signInAnonymously(auth);
+            userId = userCredential.user.uid;
+            console.warn(
+              "Signed in anonymously (no custom token found). User ID:",
+              userId
+            );
+          }
+        } catch (error) {
+          console.error("Authentication failed:", error);
+          document.getElementById("messageBox").className =
+            "mt-6 p-4 rounded-lg text-white bg-red-500 text-center";
+          document.getElementById("messageBox").textContent =
+            "Gagal autentikasi. Pendaftaran tidak dapat diproses.";
+          document.getElementById("messageBox").classList.remove("hidden");
+          document.getElementById("submitButton").disabled = true;
+        }
+      }
+
+      // Panggil autentikasi segera
+      authenticateUser();
+
+      // --- 3. LOGIKA SUBMIT FORMULIR ---
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const form = event.target;
+          const submitButton = document.getElementById("submitButton");
+          const buttonText = document.getElementById("buttonText");
+          const loadingSpinner = document.getElementById("loadingSpinner");
+          const messageBox = document.getElementById("messageBox");
+
+          if (!userId) {
+            messageBox.className =
+              "mt-6 p-4 rounded-lg text-white bg-yellow-500 text-center";
+            messageBox.textContent =
+              "Autentikasi belum selesai. Tunggu sebentar atau coba lagi.";
+            messageBox.classList.remove("hidden");
+            return;
+          }
+
+          // 1. Tampilkan Loading State
+          submitButton.disabled = true;
+          buttonText.textContent = "Menyimpan...";
+          loadingSpinner.classList.remove("hidden");
+          loadingSpinner.classList.add("ml-2"); // Tambahkan sedikit jarak pada spinner
+
+          messageBox.classList.add("hidden");
+
+          // 2. Ambil Nilai Formulir
+          const dataPendaftaran = {
+            nama_lengkap: document.getElementById("nama_lengkap").value,
+            email_kontak: document.getElementById("email_kontak").value,
+            nomor_telepon: document.getElementById("nomor_telepon").value,
+            tanggal_lahir: document.getElementById("tanggal_lahir").value,
+            pilihan_program: document.getElementById("pilihan_program").value,
+            alamat_lengkap: document.getElementById("alamat_lengkap").value,
+            waktu_pendaftaran: new Date().toISOString(),
+            userId: userId,
+          };
+
+          // 3. Tentukan Path Koleksi Firestore (Private Data)
+          // Path: /artifacts/{appId}/users/{userId}/registrations
+          const collectionPath = `artifacts/${appId}/users/${userId}/registrations`;
+
+          try {
+            // 4. Simpan Data ke Firestore
+            const docRef = await addDoc(
+              collection(db, collectionPath),
+              dataPendaftaran
+            );
+
+            // 5. Tangani Sukses
+            console.log(
+              "Pendaftaran berhasil disimpan. ID Dokumen:",
+              docRef.id
+            );
+            messageBox.className =
+              "mt-6 p-4 rounded-lg text-white bg-green-500 text-center";
+            messageBox.textContent = `Pendaftaran berhasil disimpan! ID: ${docRef.id.substring(
+              0,
+              8
+            )}...`;
+            form.reset(); // Reset formulir setelah sukses
+          } catch (error) {
+            // 6. Tangani Gagal
+            console.error("Error saving to Firestore:", error);
+            messageBox.className =
+              "mt-6 p-4 rounded-lg text-white bg-red-500 text-center";
+            messageBox.textContent = `Pendaftaran gagal: ${error.message}. Cek konsol.`;
+          } finally {
+            // 7. Kembalikan ke Normal State
+            submitButton.disabled = false;
+            buttonText.textContent = "Daftar Sekarang";
+            loadingSpinner.classList.add("hidden");
+            messageBox.classList.remove("hidden");
+          }
+        });
+    </script>
+  </body>
 </html>
