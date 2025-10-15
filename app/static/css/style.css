@@ -349,7 +349,8 @@ body {
   color: #ffffff !important;
 }
 .dark #layanan-kami-section {
-  background-image: url("static/img/bg-dark.jpg") !important;
+  background-image: url('../img/bg-dark.jpg') !important;
+  cursor: url('../img/lapor.png'), auto;
   background-attachment: fixed;
   background-size: cover;
   background-position: center;

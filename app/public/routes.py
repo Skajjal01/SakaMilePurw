@@ -625,13 +625,63 @@ def skm():
     except TemplateNotFound:
         abort(404)
 
-@public_bp.route('/bergabung')
-@public_bp.route('/bergabung.html')
+@public_bp.route('/bergabung', methods=['GET', 'POST'])
+@public_bp.route('/bergabung.html', methods=['GET', 'POST'])
 def bergabung():
+    """Form pendaftaran 'Bergabung' (GET: tampilkan form, POST: simpan ke MySQL)."""
+    if request.method == 'GET':
+        try:
+            return render_template('bergabung.html', title='Bergabung')
+        except TemplateNotFound:
+            abort(404)
+
+    # --- POST: ambil input form ---
+    data = {
+        "nama_lengkap":    (request.form.get('nama_lengkap') or "").strip(),
+        "email_kontak":    (request.form.get('email_kontak') or "").strip(),
+        "nomor_telepon":   (request.form.get('nomor_telepon') or "").strip(),
+        "tanggal_lahir":   (request.form.get('tanggal_lahir') or "").strip(),  # format YYYY-MM-DD
+        "pilihan_program": (request.form.get('pilihan_program') or "").strip(),
+        "alamat_lengkap":  (request.form.get('alamat_lengkap') or "").strip()
+    }
+
+    # Validasi minimal (wajib semua terisi)
+    missing = [k for k, v in data.items() if not v]
+    if missing:
+        return render_template(
+            'bergabung.html',
+            title='Bergabung',
+            error=f"Field wajib: {', '.join(missing)}",
+            old=data
+        ), 400
+
+    # Simpan ke database
+    conn = get_db()
     try:
-        return render_template('bergabung.html', title='bergabung')
-    except TemplateNotFound:
-        abort(404)        
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO pendaftaran
+                (nama_lengkap, email_kontak, nomor_telepon, tanggal_lahir, pilihan_program, alamat_lengkap)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (
+            data["nama_lengkap"], data["email_kontak"], data["nomor_telepon"],
+            data["tanggal_lahir"], data["pilihan_program"], data["alamat_lengkap"]
+        ))
+        conn.commit()
+        cur.close()
+        return render_template(
+            'bergabung.html',
+            title='Bergabung',
+            success='Pendaftaran berhasil dikirim!'
+        )
+    except mysql.connector.Error as err:
+        # Log error ke console supaya kelihatan di terminal
+        print(f"[DB][bergabung POST] {err}")
+        return render_template(
+            'bergabung.html',
+            title='Bergabung',
+            error='Pendaftaran gagal. Coba lagi ya.'
+        ), 500    
 
 # HUBUNGI KAMI
 
